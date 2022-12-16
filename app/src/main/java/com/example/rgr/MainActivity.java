@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            adapter.clear();
             for (int i = 0; i < list.size(); i++) {
                 adapter.add((list.get(i)).toString());
             }
