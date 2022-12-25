@@ -30,8 +30,15 @@ public class List implements IList {
     public void remove(int i) {
         Node x = getNode(i);
         if (x == head){
-            x.next.prev = null;
-            head = x.next;
+            if(length > 1) {
+                x.next.prev = null;
+                head = x.next;
+            }
+            else {
+                head = null;
+                tail = null;
+                x = null;
+            }
         } else if(x == tail){
             x.prev.next = null;
             tail = x.prev;
@@ -39,6 +46,7 @@ public class List implements IList {
         } else {
             x.prev.next = x.next;
             x.next.prev = x.prev;
+
         }
 
         length--;

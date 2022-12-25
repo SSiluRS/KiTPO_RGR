@@ -71,15 +71,12 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(list.size() > 1) {
-                    list.remove(position);
-                    adapter.clear();
-                    for (int i = 0; i < list.size(); i++) {
-                        adapter.add((list.get(i)).toString());
-                    }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            if(list.size() > 0) {
+                list.remove(position);
+                adapter.clear();
+                for (int i = 0; i < list.size(); i++) {
+                    adapter.add((list.get(i)).toString());
                 }
             }
         });
@@ -90,9 +87,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         removeBtn.setOnClickListener((view)->{
-            if(list.size() > 1) {
+            if(list.size() > 0) {
                 list.remove(list.size()-1);
                 adapter.clear();
+                if (list.size()>0)
                 for (int i = 0; i < list.size(); i++) {
                     adapter.add((list.get(i)).toString());
                 }
@@ -180,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            Toast.makeText(getBaseContext(), "Список успешно загружен из файла!", Toast.LENGTH_LONG).show();
             try {
                 bufferedReader.close();
             } catch (IOException e) {
